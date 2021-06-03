@@ -7,8 +7,8 @@ from queue import Queue
 def on_message(client, userdata, message):
     data = str(message.payload.decode("utf-8"))
 
-    print("message received ", str(message.payload.decode("utf-8")))
-    print("message topic=", message.topic)
+    print("message received ", str(message.payload.decode("utf-8")), flush=True)
+    print("message topic=", message.topic, flush=True)
     q.put(data)
 
 q = Queue()
@@ -20,6 +20,7 @@ print("Отправка сообщений в топик", "sensors")
 while True:
     humidity_value = uniform(10.0, 70.0)    # создание рандомных значений влажности
     client.publish("sensors/humidity", humidity_value)    # отправка значений влажности в топик
-    time.sleep(4)
+
     client.subscribe("humidifier")
     client.on_message = on_message
+    time.sleep(4)

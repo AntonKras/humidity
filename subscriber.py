@@ -1,13 +1,12 @@
 import paho.mqtt.client as mqtt
 import time
-from influxdb import InfluxDBClient
 from queue import Queue
 
 def on_message(client, userdata, message):
     data = str(message.payload.decode("utf-8"))
 
-    print("message received ", str(message.payload.decode("utf-8")))
-    print("message topic=", message.topic)
+    print("message received ", str(message.payload.decode("utf-8")), flush=True)
+    print("message topic=", message.topic, flush=True)
     q.put(data)
 
 
@@ -31,6 +30,6 @@ while True:
         if value < 30:
             client_2.publish("humidifier", 'ON')
         elif value > 60:
-            client_2.publish("humidifier", 'OFF')
-        print("received from queue", message)
+                client_2.publish("humidifier", 'OFF')
+        print("received from queue", message, flush=True)
     time.sleep(4)  # wait
