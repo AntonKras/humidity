@@ -25,5 +25,5 @@ services:
     container_name: subscriber
     depends_on:
       - mosquitto
-      - publisher
+      - publisher_custom
     network_mode: host
